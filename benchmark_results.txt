@@ -1,0 +1,200 @@
+🚀 STARTING FULL BENCHMARK SUITE
+
+
+=== SCENARIO S1: CONCURRENT TYPING ===
+
+> stress
+> tsx benchmarks/stress.ts --workload concurrentTyping
+
+
+🚀 Starting Scenario S1: Concurrent Typing Stress Test
+   Clients: 10 | Ops per client: 1000 | Total Ops: 10000
+
+✅ Relay Server started on port 9000
+✅ 10 clients connected. Commencing workload...
+✅ Workload finished in 12.80s. Waiting for network to settle (max 5s)...
+
+📊 --- RESULTS ---
+   Client 0: Length = 10000/10000 | Converged = ✅
+   Client 1: Length = 10000/10000 | Converged = ✅
+   Client 2: Length = 10000/10000 | Converged = ✅
+   Client 3: Length = 10000/10000 | Converged = ✅
+   Client 4: Length = 10000/10000 | Converged = ✅
+   Client 5: Length = 10000/10000 | Converged = ✅
+   Client 6: Length = 10000/10000 | Converged = ✅
+   Client 7: Length = 10000/10000 | Converged = ✅
+   Client 8: Length = 10000/10000 | Converged = ✅
+   Client 9: Length = 10000/10000 | Converged = ✅
+
+🏁 SCENARIO S1 PASSED 🏆
+
+
+
+=== SCENARIO S2: SUSTAINED GC ===
+
+> stress
+> tsx benchmarks/stress.ts --workload sustainedGC
+
+
+🚀 Starting Scenario S2: 60-Second Sustained GC Stress Test
+   Clients: 5 | Target: 5 Hz per client | Deletions: 10%
+
+✅ 5 clients connected. Simulating 60 seconds of typing... (grab a coffee ☕)
+✅ Workload finished. Waiting 5s for final convergence...
+
+📊 --- RESULTS ---
+   Client 0: Visible Chars = 1202 | Internal Nodes = Unknown | Converged = ✅
+   Client 1: Visible Chars = 1202 | Internal Nodes = Unknown | Converged = ✅
+   Client 2: Visible Chars = 1202 | Internal Nodes = Unknown | Converged = ✅
+   Client 3: Visible Chars = 1202 | Internal Nodes = Unknown | Converged = ✅
+   Client 4: Visible Chars = 1202 | Internal Nodes = Unknown | Converged = ✅
+
+🏁 SCENARIO S2 PASSED 🏆
+
+
+
+=== SCENARIO S3: LARGE DOCUMENT ===
+
+> stress
+> tsx benchmarks/stress.ts --workload largeDoc
+
+
+🚀 Starting Scenario S3: Large Document (10k chars) + Mid-Document Edits
+⏳ Preloading 10,000 characters from Client A...
+⏳ Clients B and C joining and downloading state...
+[relay] replayed 100 ops to site-B on join
+[relay] replayed 100 ops to site-C on join
+✅ Initial sync successful. All 3 clients have 10,000 characters.
+⏳ Commencing concurrent mid-document edits...
+✅ Workload finished. Waiting 5s for final convergence...
+
+📊 --- RESULTS ---
+   Client A: Length = 10600/10600 | Converged = ✅
+   Client B: Length = 10600/10600 | Converged = ✅
+   Client C: Length = 10600/10600 | Converged = ✅
+
+🏁 SCENARIO S3 PASSED 🏆
+
+
+
+=== SCENARIO S4: PARTITION / HEAL ===
+
+> stress
+> tsx benchmarks/stress.ts --workload s4
+
+
+🚀 Starting Scenario S4: 100 Partition/Heal Cycles
+✅ Clients connected. Starting 100 disconnect/reconnect cycles...
+[relay] replayed 10 ops to site-A on join
+[relay] replayed 10 ops to site-A on join
+   Completed 25/100 cycles...
+   Completed 50/100 cycles...
+[relay] replayed 10 ops to site-A on join
+[relay] replayed 10 ops to site-A on join
+   Completed 75/100 cycles...
+[relay] replayed 10 ops to site-A on join
+   Completed 100/100 cycles...
+
+📊 --- RESULTS ---
+   Final Document Length: 2000
+   Average Time-to-Converge: 80.83 ms
+
+🏁 SCENARIO S4 PASSED 🏆
+
+
+
+=== SCENARIO S5: RECONNECT STORM ===
+
+> stress
+> tsx benchmarks/stress.ts --workload s5
+
+
+🚀 Starting Scenario S5: Reconnect Storm (20 clients)
+✅ 20 clients connected then dropped. Reconnecting all at once...
+
+📊 --- RESULTS ---
+   All 20 clients re-established sessions in: 143 ms
+
+🏁 SCENARIO S5 PASSED 🏆
+
+
+
+=== SCENARIO S6: LONG-OFFLINE REPLAY ===
+
+> stress
+> tsx benchmarks/stress.ts --workload s6
+
+
+🚀 Starting Scenario S6: Long-Offline Replay
+✅ Client A is offline. Client B typing 500 ops over 60 seconds...
+✅ Client B finished typing. Reconnecting Client A...
+[relay] replayed 500 ops to site-A on join
+
+📊 --- RESULTS ---
+   Client A received ops in: 71 ms
+   Client A text length: 500/500
+
+🏁 SCENARIO S6 PASSED 🏆
+
+
+
+=== SCENARIO S7: LATENCY ===
+
+> stress
+> tsx benchmarks/stress.ts --workload latency
+
+
+🚀 Starting Scenario S7: End-to-End Latency Benchmark
+✅ Clients connected. Measuring 1,000 operations at 100ms intervals...
+✅ Measurement complete.
+
+📊 --- RESULTS ---
+   p50 (Median) Latency: 3 ms
+   p99 (Tail) Latency:   6 ms
+   Max Latency:          11 ms
+
+🏁 SCENARIO S7 PASSED 🏆
+💾 Raw latency data saved to: benchmarks/results/latency-local.json
+
+
+
+=== SCENARIO S8: THROUGHPUT ===
+
+> stress
+> tsx benchmarks/stress.ts --workload s8
+
+
+🚀 Starting Scenario S8: Sustained Throughput
+✅ Clients connected. Blasting ops for 10 seconds...
+✅ Publishing finished. Sent 19929 ops in 10.00s (1993 ops/sec)
+⏳ Waiting for receiver to catch up...
+
+📊 --- RESULTS ---
+   Total Ops Processed: 19929
+   Publisher Throughput: 1993 ops/sec
+   Receiver Catch-up Time: 13 ms
+
+🏁 SCENARIO S8 PASSED 🏆
+
+
+
+=== SCENARIO S9 & S10: COMPARATIVE ANALYSIS ===
+
+> stress
+> tsx benchmarks/stress.ts --workload compare
+
+
+🚀 Starting Scenario S9 & S10: RGA vs LWW Comparative Analysis
+
+▶️ Running Scenario S9: Concurrent Inserts (RGA vs Toy LWW)
+   RGA Result: "ZYXBase" (Length: 7)
+   LWW Result: "BaseZ" (Length: 5)
+
+▶️ Running Scenario S10: Title Updates (RGA vs LWW Bandwidth)
+   LWW Title Updates: 100 ops (~4.9 KB)
+   RGA Title Updates: 10000 ops (~488.3 KB)
+
+📊 --- RESULTS ---
+🏁 SCENARIO S9 (RGA preserves, LWW drops): PASSED 🏆
+🏁 SCENARIO S10 (LWW efficient, RGA overkill): PASSED 🏆
+

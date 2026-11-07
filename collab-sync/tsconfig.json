@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "rootDir": "../",
+    "outDir": "./dist",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "target": "esnext",
+    "lib": ["esnext"],
+    "types": ["node"],
+    "sourceMap": true,
+    "declaration": false,
+    "declarationMap": false,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": false,
+    "strict": true,
+    "verbatimModuleSyntax": false,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true,
+    "paths": {
+      "crdt-engine/*": ["../crdt-engine/*"]
+    }
+  },
+  "include": ["src/**/*", "shared/**/*"],
+  "exclude": ["node_modules", "dist", "tests"],
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+      "verbatimModuleSyntax": false,
+      "paths": {
+        "crdt-engine/*": ["../crdt-engine/*"]
+      }
+    }
+  }
+}

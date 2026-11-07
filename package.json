@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "collab-sync": "file:collab-sync",
+    "crdt-engine": "file:crdt-engine",
+    "fake-indexeddb": "^5.0.2",
+    "ws": "^8.16.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.2",
+    "@types/ws": "^8.5.10",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.3.3"
+  },
+  "scripts": {
+    "stress": "tsx benchmarks/stress.ts"
+  }
+}

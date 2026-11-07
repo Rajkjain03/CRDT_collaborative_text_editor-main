@@ -1,0 +1,12 @@
+{
+  "s9": {
+    "rga": "ZYXBase",
+    "lww": "BaseZ"
+  },
+  "s10": {
+    "lwwOps": 100,
+    "rgaOps": 10000,
+    "lwwBytes": 5000,
+    "rgaBytes": 500000
+  }
+}
